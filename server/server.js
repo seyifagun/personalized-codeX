@@ -3,7 +3,7 @@ import * as dotenv from 'dotenv';
 import cors from 'cors';
 import { Configuration, OpenAIApi } from 'openai';
 
-dotenv.config();
+dotenv.config()
 
 const configuration = new Configuration({
     apiKey : process.env.OPENAI_API_KEY,
@@ -39,9 +39,9 @@ app.post('/', async(req, res) => {
             bot: response.data.choices[0].text
         })
     } catch(error){
-        console.log(error);
-        res.status(500).send({error})
+        console.log('print out issue: ', error);
+        res.status(500).send(error || 'Something went wrong somewhere!')
     }
-})
+});
 
-app.listen(5000, () => {console.log('Server is running on port http://localhost:5000 ')}) // run server
+app.listen(5000, () => console.log('Server is running on port http://localhost:5000 ')); // run server

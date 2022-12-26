@@ -66,7 +66,6 @@ const handleSubmit = async (e) => {
     e.preventDefault();
 
     const data = new FormData(form);
-
     //user's chatStripe
     chatContainer.innerHTML += chatStripe(false, data.get('prompt'));
 
@@ -83,9 +82,10 @@ const handleSubmit = async (e) => {
     loader(messageDiv);
 
     const response = await fetch('https://codex-p7i3.onrender.com', {
+    // const response = await fetch('http://localhost:5000', {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
         },
         body: JSON.stringify({ //payload
            prompt: data.get('prompt') 
@@ -103,6 +103,7 @@ const handleSubmit = async (e) => {
         typeText(messageDiv, parsedData);
     } else {
         const err = await response.text();
+        console.log('what is the matter: ', err);
 
         messageDiv.innerHTML = 'Something went wrong';
 
